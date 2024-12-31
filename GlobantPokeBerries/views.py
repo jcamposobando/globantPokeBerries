@@ -5,7 +5,6 @@ from collections import Counter
 
 
 def allBerryStats(request):
-    
     # TODO: this might not be the best place for this logic
     # View should not implement logic at all
     # also, this values could be cached since the do not chage frequently
