@@ -1,6 +1,6 @@
 from django.db import models
 from . import services
-
+import os
 
 class PokeBerry(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -15,11 +15,15 @@ class PokeBerry(models.Model):
 
 # This might not be the best place for this logic, as it does not belong to the model itself
 # By placing it here it runs only once, when the server starts running
-# TODO: add env variable so it doesnt run each time some file changes when in dev env
-# number_of_berries = services.get_number_of_berries()
-# print(f"number of berries:{number_of_berries}")
-# for i in range(1, number_of_berries + 1):
-#     # Cool destructurin assigment, buy maybe brittle, check later
-#     pokeBerry = PokeBerry(**services.get_berry_info(i))
-#     print(pokeBerry)
-#     pokeBerry.save()
+def load_berry_info ():
+    number_of_berries = services.get_number_of_berries()
+    print(f"number of berries:{number_of_berries}")
+    for i in range(1, number_of_berries + 1):
+        # Cool destructurin assigment, buy maybe brittle, check later
+        pokeBerry = PokeBerry(**services.get_berry_info(i))
+        print(pokeBerry)
+        pokeBerry.save()
+
+#Avoid running it on dev, as it would run on every change
+if (os.getenv("DEBUG_VALUE")!="TRUE"):
+    load_berry_info()

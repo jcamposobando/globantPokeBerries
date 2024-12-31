@@ -61,7 +61,7 @@ For extra points:
 
 Thank you
 ## Installation
-1. Install [Python3](https://www.python.org/downloads/).
+1. Install [Python3](https://www.python.org/downloads). Optionally, install [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) for ease of running the dev environment and deployment.
 
 2. Activate the virtual environment by running this command on your command line 
     ``` bash
@@ -101,7 +101,7 @@ Thank you
    You'll find your server at `http://127.0.0.1:8000/`
    
 
-## Useful tipsDEBUG_VALUE=TRUE SECRET_KEY=FHHG python manage.py runserver
+## Useful tips
 
 1. [Install sqliteBrowser](https://sqlitebrowser.org/dl/#linux) for a quick peek into database
 2. Use Django [Admin console](http://127.0.0.1:8000/admin/). Read more at [part 2 of Djando Tutorial](https://docs.djangoproject.com/en/5.1/intro/tutorial02/#introducing-the-django-admin) to setup the admin console users

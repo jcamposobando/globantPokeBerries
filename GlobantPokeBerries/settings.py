@@ -22,8 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/echo"SECRET_KEY=$(opensslrand-base6432)">.env
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# This is now set on the .env files. Leaving it here just for reference 
-DEBUG = os.getenv('DEBUG_VALUE') == 'TRUE'
+# This is now set on the .env files. Leaving it here just for reference
+DEBUG = os.getenv("DEBUG_VALUE") == "TRUE"
 
 ALLOWED_HOSTS = ["0.0.0.0"]
 
