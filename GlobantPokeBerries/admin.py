@@ -4,6 +4,6 @@
 
 from django.contrib import admin
 
-from .models import pokeBerry
+from .models import PokeBerry
 
-admin.site.register(pokeBerry)
+admin.site.register(PokeBerry)
