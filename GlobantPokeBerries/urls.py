@@ -20,4 +20,5 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls), #enables Django admin Console
     path('allBerryStats/', views.allBerryStats, name='allBerryStats' ),
+    path('growthTimeHistogram',views.pokeBerryGrowthTimeHistogram, name="growthTimeHistogram")
 ]
