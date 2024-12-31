@@ -12,19 +12,18 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import django_on_heroku
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-fgp@jzxvx_9nz43)=k8l@v_9u!zrs%vn_(k&boc+#s7$lu&orm"
+# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/echo"SECRET_KEY=$(opensslrand-base6432)">.env
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# This is now set on the .env files. Leaving it here just for reference 
+DEBUG = os.getenv('DEBUG_VALUE') == 'TRUE'
 
 ALLOWED_HOSTS = ["0.0.0.0"]
 
