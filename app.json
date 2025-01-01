@@ -1,5 +1,11 @@
 {
     "environments": {
+        "formation": {
+          "test": {
+            "quantity": 1,
+            "size": "eco"
+          }
+      },
       "test": {
         "scripts": {
           "test": "pytest"
