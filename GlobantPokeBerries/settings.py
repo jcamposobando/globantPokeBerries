@@ -124,3 +124,8 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 django_on_heroku.settings(locals())
+
+# This line is necesary to access the admin console on the heroku deployment 
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.herokuapp.com'
+]
