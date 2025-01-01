@@ -1,16 +1,18 @@
 from .models import PokeBerry
 from collections import Counter
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from django.db.models import Avg, Min, Max, Variance
 from statistics import median
 import os
 import requests
+from dacite import from_dict
 
 
 BASE_URL = "https://pokeapi.co/api/v2/berry"
 
+
 @dataclass
-class PokeBerryInfo():
+class PokeBerryInfo:
     id: int
     name: str
     growth_time: int
@@ -42,6 +44,7 @@ def calc_growth_time_frequencies() -> dict[int, int]:
         dict[int, int]: The key represents growth_time, the value represents its frequency
     """
     return Counter(get_growth_time_list())
+
 
 def calc_growth_time_median() -> float:
     """Returns median value of pokeBerries growth_time
@@ -80,7 +83,7 @@ def get_number_of_berries():
     return berry_response["count"]
 
 
-def get_berry_info(id)->PokeBerryInfo:
+def get_berry_info(id) -> PokeBerryInfo:
     """Retrieves pokeBerry info by Id
 
     Args:
@@ -91,13 +94,13 @@ def get_berry_info(id)->PokeBerryInfo:
     """
     r = requests.get(f"{BASE_URL}/{str(id)}")
     berry = r.json()
-    return PokeBerryInfo(**berry)
+    return from_dict(PokeBerryInfo, berry)
 
 
 def load_all_berries_info():
     """Loads all berries info from pokeAPI into our database through the orm"""
     for i in range(1, get_number_of_berries() + 1):
-        pokeBerry = PokeBerry(**get_berry_info(i))
+        pokeBerry = PokeBerry(**asdict(get_berry_info(i)))
         pokeBerry.save()
 
 
