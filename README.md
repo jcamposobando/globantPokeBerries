@@ -102,6 +102,23 @@ Thank you
    
 7. If it is your first time running the application, uncomment the database loading from pokeAPI on `services.py`
 
+## Running tests
+
+2. Activate the virtual environment by running this command on your command line 
+    ``` bash
+    source env/bin/activate
+    ```
+
+3.  Install the required packages. These packages are listed in the `requirements.txt` and can be installed with `PIP` by running this command
+    ```bash
+    python -m pip install -r requirements.txt
+    ``` 
+
+4.  Execute pytest by running the command on the command line
+    ```bash
+    pytest
+    ``` 
+
 ## Useful tips
 
 1. [Install sqliteBrowser](https://sqlitebrowser.org/dl/#linux) for a quick peek into database
