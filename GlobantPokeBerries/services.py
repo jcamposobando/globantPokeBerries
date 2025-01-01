@@ -107,5 +107,5 @@ def load_all_berries_info():
 # It will run only once when module is loaded
 # Avoid running it on dev, as it would run on every change
 # because of hot-reloading
-if os.getenv("DEBUG_VALUE") != "TRUE":
-    load_all_berries_info()
+# if os.getenv("DEBUG_VALUE") != "TRUE":
+#     load_all_berries_info()

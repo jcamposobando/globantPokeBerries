@@ -100,6 +100,7 @@ Thank you
    ```
    You'll find your server at `http://127.0.0.1:8000/`
    
+7. If it is your first time running the application, uncomment the database loading from pokeAPI on `services.py`
 
 ## Useful tips
 
