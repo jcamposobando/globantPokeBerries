@@ -90,7 +90,7 @@ def get_berry_info(id) -> PokeBerryInfo:
         id (int): Unique Id of each pokeBerry
 
     Returns:
-        _type_: _description_
+        PokeBerryInfo: object containing relevant PokeBerry information
     """
     r = requests.get(f"{BASE_URL}/{str(id)}")
     berry = r.json()

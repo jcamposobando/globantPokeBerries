@@ -2,6 +2,10 @@ from GlobantPokeBerries import services
 from GlobantPokeBerries.models import PokeBerry
 from statistics import StatisticsError
 import pytest
+import requests
+import requests_mock
+import json
+from dataclasses import asdict
 
 
 # calc_growth_time_frequencies
@@ -70,6 +74,17 @@ class Test_calc_pokeBerry_stats:
 
 
 # get_berry_info
+class Test_get_berry_info:
+    def test_get_berry_info_empty(self, requests_mock):
+        with pytest.raises(TypeError):
+            requests_mock.get(services.BASE_URL + "/1", text="")
+            services.get_berry_info()
+
+    def test_get_berry_info_valid(self, requests_mock):
+        remote_pokeberry = {"id": 1, "name": "a", "growth_time": 1}
+        requests_mock.get(services.BASE_URL + "/1", text=json.dumps(remote_pokeberry))
+        pokeBerry = services.get_berry_info(1)
+        assert asdict(pokeBerry) == remote_pokeberry
 
 
 # get_growth_time_list
@@ -88,6 +103,17 @@ class Test_get_growth_time_list:
 
 
 # get_number_of_berries
+class Test_get_number_of_berries:
+    def test_get_number_of_berries_empty(self, requests_mock):
+        with pytest.raises(KeyError):
+            requests_mock.get(services.BASE_URL, text="{ }")
+            services.get_number_of_berries()
+
+    def test_get_number_of_berries_valid(self, requests_mock):
+        requests_mock.get(services.BASE_URL, text='{"count":1}')
+        pokeBerryCount = services.get_number_of_berries()
+        assert pokeBerryCount == 1
+
 
 # get_pokeBerry_name_list
 class Test_get_pokeBerry_name_list:
@@ -101,6 +127,4 @@ class Test_get_pokeBerry_name_list:
         PokeBerry(id=1, name="a", growth_time=1).save()
         PokeBerry(id=2, name="b", growth_time=2).save()
         PokeBerry(id=3, name="c", growth_time=3).save()
-        assert services.get_pokeBerry_name_list() == ["a","b","c"]
-
-# load_all_berries_info
+        assert services.get_pokeBerry_name_list() == ["a", "b", "c"]
