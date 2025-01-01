@@ -59,9 +59,8 @@ def get_berry_info(id):
 
 
 def load_berry_info():
-    number_of_berries = get_number_of_berries()
-    for i in range(1, number_of_berries + 1):
-        pokeBerry = PokeBerry(get_berry_info(i))
+    for i in range(1, get_number_of_berries() + 1):
+        pokeBerry = PokeBerry(**get_berry_info(i))
         pokeBerry.save()
 
 
