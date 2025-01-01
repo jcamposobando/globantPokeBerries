@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/echo"SECRET_KEY=$(opensslrand-base6432)">.env
+# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/echo"SECRET_KEY=$(openssl rand -base64 32)">.env
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # This is now set on the .env files. Leaving it here just for reference
@@ -125,7 +125,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 django_on_heroku.settings(locals())
 
-# This line is necesary to access the admin console on the heroku deployment 
+# This line is necessary to access the admin console on the heroku deployment 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.herokuapp.com'
 ]

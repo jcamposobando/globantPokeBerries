@@ -7,19 +7,42 @@ import os
 BASE_URL = "https://pokeapi.co/api/v2/berry"
 
 
-def get_growth_time_list():
-    return PokeBerry.objects.values_list("growth_time", flat=True)
+def get_growth_time_list() -> list[int]:
+    """Returns a list containing the growth_time of every pokeBerry
+
+    Returns:
+        list[int]: list containing the growth_time of every pokeBerry
+    """
+    return list(PokeBerry.objects.values_list("growth_time", flat=True))
 
 
-def get_pokeBerry_name_list():
-    return ",".join(PokeBerry.objects.values_list("name", flat=True))
+def get_pokeBerry_name_list() -> list[str]:
+    """Returns a list containing the name of every pokeBerry
+
+    Returns:
+        list[str]: list containing the name of every pokeBerry
+    """
+    return list(PokeBerry.objects.values_list("name", flat=True))
 
 
-def calc_growth_time_frequencies():
-    return Counter(PokeBerry.objects.values_list("growth_time", flat=True))
+def calc_growth_time_frequencies() -> dict[int, int]:
+    """Returns a dictionary in which the keys represent growth_time of pokeBerries and
+    the value represents the amount of pokeBerries with said growth_time
+
+    Returns:
+        dict[int, int]: The key represents growth_time, the value represents its frequency 
+    """
+    return Counter(get_growth_time_list())
 
 
-def calc_pokeBerry_stats():
+def calc_pokeBerry_stats() -> dict[str, any]:
+    """Runs the Min, Max, Variance and average aggregations of
+    all the pokeBerries growth_time attribute
+
+    Returns:
+        dict[str, any]: returns a dictionary containing the aggregation of 
+        pokeBerries growth_time attribute
+    """
     return PokeBerry.objects.all().aggregate(
         min_growth_time=Min("growth_time"),
         max_growth_time=Max("growth_time"),
@@ -58,13 +81,15 @@ def get_berry_info(id):
     }
 
 
-def load_berry_info():
+def load_all_berries_info():
+    """Loads all berries info from pokeAPI into our database through the orm"""
     for i in range(1, get_number_of_berries() + 1):
         pokeBerry = PokeBerry(**get_berry_info(i))
         pokeBerry.save()
 
 
-# It will run only once
+# It will run only once when module is loaded
 # Avoid running it on dev, as it would run on every change
+# because of hot-reloading
 if os.getenv("DEBUG_VALUE") != "TRUE":
-    load_berry_info()
+    load_all_berries_info()

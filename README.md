@@ -88,15 +88,15 @@ Thank you
     ```
     To make any further changes edit the `.env.` file directly
 
-7. Launch application using the Heroku CLI. The advantage is that it reads the enviromental variables from the `.env` file
+7. Launch application using the Heroku CLI. The advantage is that it reads the environmental variables from the `.env` file
    ```bash 
    heroku local
    ```
    You'll find your server at `http://0.0.0.0:5006/`
 
-8. Alternatively, the application can be run by using the Django `manage.py` script, but it requires that the enviromental variables are set manually
+8. Alternatively, the application can be run by using the Django `manage.py` script, but it requires that the environmental variables are set manually
    ```bash
-   DEBUG_VALUE=TRUE SECRET_KEY=FHHG python manage.py runserver
+   DEBUG_VALUE=TRUE SECRET_KEY=YOUR_SECRETE python manage.py runserver
    ```
    You'll find your server at `http://127.0.0.1:8000/`
    
@@ -104,7 +104,7 @@ Thank you
 ## Useful tips
 
 1. [Install sqliteBrowser](https://sqlitebrowser.org/dl/#linux) for a quick peek into database
-2. Use Django [Admin console](http://127.0.0.1:8000/admin/). Read more at [part 2 of Djando Tutorial](https://docs.djangoproject.com/en/5.1/intro/tutorial02/#introducing-the-django-admin) to setup the admin console users
+2. Use Django [Admin console](http://127.0.0.1:8000/admin/). Read more at [part 2 of Django Tutorial](https://docs.djangoproject.com/en/5.1/intro/tutorial02/#introducing-the-django-admin) to setup the admin console users
 3. Use interactive shell with Django
     ```bash
     python manage.py shell

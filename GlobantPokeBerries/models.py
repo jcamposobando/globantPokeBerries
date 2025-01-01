@@ -8,5 +8,5 @@ class PokeBerry(models.Model):
 
     # Implementing this methods gives us a nicer string representation
     # Kindly refer to https://docs.djangoproject.com/en/5.1/intro/tutorial02/#playing-with-the-api
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.id}-{self.name}"
