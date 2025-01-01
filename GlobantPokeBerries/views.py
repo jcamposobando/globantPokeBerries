@@ -31,10 +31,12 @@ def allBerryStats(request: HttpRequest) -> JsonResponse:
     Returns:
         JsonResponse: JSON string containing all pokeBerry Stats
     """
-    aggregate = services.calc_pokeBerry_stats()
-    aggregate["frequency_growth_time"] = services.calc_growth_time_frequencies()
-    aggregate["berries_names"] = ",".join(services.get_pokeBerry_name_list())
-    return JsonResponse(aggregate)
+    response = {}
+    response["berries_names"] = ",".join(services.get_pokeBerry_name_list())
+    response.update(services.calc_pokeBerry_stats())
+    response["median_growth_time"] = services.calc_growth_time_median()
+    response["frequency_growth_time"] = services.calc_growth_time_frequencies()
+    return JsonResponse(response)
 
 
 def pokeBerryGrowthTimeHistogram(request: HttpRequest) -> HttpResponse:

@@ -1,10 +1,19 @@
-import requests
-from django.db.models import Avg, Min, Max, Variance
-from collections import Counter
 from .models import PokeBerry
+from collections import Counter
+from dataclasses import dataclass
+from django.db.models import Avg, Min, Max, Variance
+from statistics import median
 import os
+import requests
+
 
 BASE_URL = "https://pokeapi.co/api/v2/berry"
+
+@dataclass
+class PokeBerryInfo():
+    id: int
+    name: str
+    growth_time: int
 
 
 def get_growth_time_list() -> list[int]:
@@ -30,9 +39,17 @@ def calc_growth_time_frequencies() -> dict[int, int]:
     the value represents the amount of pokeBerries with said growth_time
 
     Returns:
-        dict[int, int]: The key represents growth_time, the value represents its frequency 
+        dict[int, int]: The key represents growth_time, the value represents its frequency
     """
     return Counter(get_growth_time_list())
+
+def calc_growth_time_median() -> float:
+    """Returns median value of pokeBerries growth_time
+
+    Returns:
+        float: Median value of pokeBerry growth_time
+    """
+    return median(get_growth_time_list())
 
 
 def calc_pokeBerry_stats() -> dict[str, any]:
@@ -40,14 +57,14 @@ def calc_pokeBerry_stats() -> dict[str, any]:
     all the pokeBerries growth_time attribute
 
     Returns:
-        dict[str, any]: returns a dictionary containing the aggregation of 
+        dict[str, any]: returns a dictionary containing the aggregation of
         pokeBerries growth_time attribute
     """
     return PokeBerry.objects.all().aggregate(
         min_growth_time=Min("growth_time"),
+        mean_growth_time=Avg("growth_time"),
         max_growth_time=Max("growth_time"),
         variance_growth_time=Variance("growth_time"),
-        avg_growth_time=Avg("growth_time"),
     )
 
 
@@ -63,7 +80,7 @@ def get_number_of_berries():
     return berry_response["count"]
 
 
-def get_berry_info(id):
+def get_berry_info(id)->PokeBerryInfo:
     """Retrieves pokeBerry info by Id
 
     Args:
@@ -74,11 +91,7 @@ def get_berry_info(id):
     """
     r = requests.get(f"{BASE_URL}/{str(id)}")
     berry = r.json()
-    return {
-        "id": berry["id"],
-        "name": berry["name"],
-        "growth_time": berry["growth_time"],
-    }
+    return PokeBerryInfo(**berry)
 
 
 def load_all_berries_info():
